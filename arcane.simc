@@ -1,0 +1,53 @@
+
+# no buffs in initial
+optimal_raid=0
+
+# no potions;
+potion=disabled
+food=disabled
+flask=disabled
+augmentation=disabled
+
+#actions before combat begins
+actions.precombat=arcane_intellect
+
+#main action list
+actions=counterspell
+
+actions+=/call_action_list,name=big_burst
+actions+=/call_action_list,name=small_burst
+actions+=/call_action_list,name=normal_aoe,if=active_enemies>=3
+actions+=/call_action_list,name=normal
+
+
+# normal phase (single)
+actions.normal=arcane_barrage,if=(buff.arcane_tempo.up&buff.arcane_tempo.remains<gcd.max)|buff.intuition.up|(buff.aethervision.stack=2&(!buff.clearcasting.up|buff.nether_precision.stack>0))
+actions.normal+=/arcane_orb,if=cooldown.arcane_orb.ready&buff.arcane_charge.stack<3
+actions.normal+=/shifting_power,if=(cooldown.shifting_power.ready)&buff.siphon_storm.down&debuff.touch_of_the_magi.down&cooldown.evocation.remains>15
+actions.normal+=/arcane_blast,if=buff.nether_precision.stack>0
+actions.normal+=/arcane_missiles,if=(buff.clearcasting.stack=1&cooldown.touch_of_the_magi.remains>7)|buff.clearcasting.stack>1,interrupt_if=tick_time>gcd.remains&buff.aether_attunement.down,interrupt_immediate=1,interrupt_global=1,chain=1
+actions.normal+=/arcane_blast
+actions.normal+=/arcane_barrage
+
+# normal phase (AOE)
+actions.normal_aoe+=/shifting_power,if=cooldown.shifting_power.ready&buff.siphon_storm.down&debuff.touch_of_the_magi.down&cooldown.evocation.remains>15&action.arcane_orb.charges=0
+actions.normal_aoe+=/arcane_orb,if=buff.arcane_charge.stack<3
+actions.normal_aoe+=/arcane_blast,if=debuff.magis_spark_arcane_blast.up&!prev_gcd.1.arcane_blast
+actions.normal_aoe+=/arcane_missiles,if=buff.nether_precision.down,interrupt_if=tick_time>gcd.remains&buff.aether_attunement.down,interrupt_immediate=1,interrupt_global=1,chain=1
+actions.normal_aoe+=/arcane_barrage,if=buff.arcane_charge.stack=4
+actions.normal_aoe+=/arcane_explosion,if=buff.arcane_charge.stack=0
+actions.normal_aoe+=/arcane_blast
+actions.normal_aoe+=/arcane_barrage
+
+# big burst (macro)
+actions.big_burst=evocation,if=cooldown.arcane_surge.remains<(gcd.max*3)&cooldown.touch_of_the_magi.remains<(gcd.max*5)
+actions.big_burst+=/arcane_missiles,if=prev_gcd.1.evocation
+actions.big_burst+=/use_item,name=spymasters_web,if=buff.spymasters_report.stack>=40&prev_gcd.2.evocation&!prev_off_gcd.use_item
+actions.big_burst+=/ice_floes,if=prev_gcd.2.evocation
+actions.big_burst+=/arcane_surge,if=prev_gcd.2.evocation&prev_off_gcd.ice_floes
+#actions.big_burst+=/arcane_barrage,if=prev_gcd.3.evocation&buff.arcane_charge.stack=4
+actions.big_burst+=/touch_of_the_magi,if=prev_gcd.3.evocation|prev_gcd.4.evocation
+
+# small burst (macro)
+actions.small_burst=arcane_barrage,if=cooldown.touch_of_the_magi.ready&!prev_gcd.1.arcane_barrage
+actions.small_burst+=/touch_of_the_magi,if=cooldown.touch_of_the_magi.ready&prev_gcd.1.arcane_barrage
