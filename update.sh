@@ -22,13 +22,13 @@ fi
 
 echo "downloading $filename"
 
-curl -z simc "http://downloads.simulationcraft.org/nightly/$filename" --output simc
+curl -z simc "http://downloads.simulationcraft.org/nightly/$filename" --output simc_bin
 
 echo "Extracting files"
 
 function extractDMG {
     # Path to the .dmg file
-    dmg_file="./simc"
+    dmg_file="./simc_bin"
 
     # Mount the DMG file
     hdiutil attach "$dmg_file"
@@ -51,7 +51,7 @@ function extractDMG {
 }
 
 if [[ $# -ne 0 ]]; then
-    7z e ./simc -o ./SIMC
+    7z e ./simc_bin -oSIMC
 else
     extractDMG
 fi
