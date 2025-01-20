@@ -1,0 +1,15 @@
+# no buffs in initial
+optimal_raid=0
+
+# no potions;
+potion=disabled
+food=disabled
+
+# flask=disabled
+# flask=flask_of_tempered_versatility_3
+# flask=flask_of_tempered_aggression_3
+flask=flask_of_alchemical_chaos_3
+
+augmentation=disabled
+
+report_details=1

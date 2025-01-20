@@ -1,13 +1,4 @@
 
-# no buffs in initial
-optimal_raid=0
-
-# no potions;
-potion=disabled
-food=disabled
-flask=disabled
-augmentation=disabled
-
 #actions before combat begins
 actions.precombat=arcane_intellect
 
