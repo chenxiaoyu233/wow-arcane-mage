@@ -23,7 +23,7 @@ actions.normal+=/arcane_barrage
 # normal phase (AOE)
 actions.normal_aoe+=/shifting_power,if=cooldown.shifting_power.ready&buff.siphon_storm.down&debuff.touch_of_the_magi.down&cooldown.evocation.remains>15&action.arcane_orb.charges=0
 actions.normal_aoe+=/arcane_orb,if=buff.arcane_charge.stack<3
-actions.normal_aoe+=/arcane_blast,if=debuff.magis_spark_arcane_blast.up&!prev_gcd.1.arcane_blast
+actions.normal_aoe+=/arcane_blast,if=(debuff.magis_spark_arcane_blast.up|buff.leydrinker.up)&!prev_gcd.1.arcane_blast
 actions.normal_aoe+=/arcane_missiles,if=buff.nether_precision.down,interrupt_if=tick_time>gcd.remains&buff.aether_attunement.down,interrupt_immediate=1,interrupt_global=1,chain=1
 actions.normal_aoe+=/arcane_barrage,if=buff.arcane_charge.stack=4
 actions.normal_aoe+=/arcane_explosion,if=buff.arcane_charge.stack=0
